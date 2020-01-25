@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/persons/append
+Content-Type: application/json
+
+{
+    "name":"Henry Clarkson",
+    "number":"229900"
+}
