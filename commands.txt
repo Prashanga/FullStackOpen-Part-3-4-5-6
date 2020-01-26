@@ -1,0 +1,2 @@
+heroku create --> inside project directory with git initialized
+git push heroku master
