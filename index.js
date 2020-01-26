@@ -117,7 +117,7 @@ app.put('/api/persons/append', (req,res) => {
         return res.status(200).json(appendedContact);
     }
     else{
-        res.status(404).end()
+        res.status(404).send('not found')
     }
 
     
