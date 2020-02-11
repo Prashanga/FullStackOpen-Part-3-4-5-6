@@ -7,6 +7,7 @@ const cors = require('cors')
 const Contact = require('./models/contacts')
 
 
+
 app.use(express.static('build'))
 app.use(cors())
 app.use(bodyParser.json())
@@ -85,14 +86,14 @@ app.delete('/api/persons/:id', (req,res) => {
     .catch(err=>res.status(400).end())
     
 
-})
+}) 
 
 
-app.post('/api/persons', (req,res) => {
+app.post('/api/persons', (req,res,next) => {
     let body = req.body;
-    if(!body.name || !body.number){
-        return res.status(400).send("Name or Number Missing")
-    }
+    // if(!body.name || !body.number){
+    //     return res.status(400).send("Name or Number Missing")
+    // }
 
     //If the Contact already exists
     // if(phoneBook.find(contact=>contact.name.toLowerCase() === body.name.toLowerCase())){
@@ -105,10 +106,11 @@ app.post('/api/persons', (req,res) => {
         
     })
 
-    newPerson.save().then(result => {
+    newPerson.save()
+    .then(result => {
         res.json(result)
     })
-    .catch(err=>console.log("Failed to enter into database"));
+    .catch(err=>{next(err)});
     
 })
 
@@ -167,15 +169,17 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
-    console.error(error.message)
-  
+    //console.error(error)
     if (error.name === 'CastError' && error.kind === 'ObjectId') {
       return response.status(400).send({ error: 'malformatted id' })
+    } 
+    else if(error.name === 'ValidationError') {
+        console.log("ERROR NAME:     ",error.name)
+        return response.status(400).json({ error: error.message })
     } 
   
     next(error)
 }
-  
 app.use(errorHandler)
 
 
