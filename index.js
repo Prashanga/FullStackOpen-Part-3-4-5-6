@@ -14,13 +14,6 @@ app.use(bodyParser.json())
 app.use(morgan('tiny'))
 
 
-// const generateID = () => {
-//     let randID = () => Math.random().toString(36).substr(2,6)
-//     return randID() + '-' + randID()+ '-' + randID() + '-' + randID() 
-  
-// }
-
-
 //Creating custom Morgan tokens
 morgan.token('body', function getId (req) {
     return JSON.stringify(req.body)
@@ -157,10 +150,6 @@ app.put('/api/persons/append', (req,res) => {
     //     res.status(404).send('not found')
     // } 
 })
-
-//*****************************************MOngoDB Updates above this line ****** */
-
-
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
