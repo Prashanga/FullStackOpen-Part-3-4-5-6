@@ -37,17 +37,32 @@ test('there are four blogs', async () => {
   expect(response.body.length).toBe(initialBlogs.length)
 })
 
-test('the first blog is about React patterns', async () => {
-  const response = await api.get('/api/blogs')
-
-  expect(response.body[0].title).toBe(initialBlogs[0].title)
-})
 
 test('id is a unique identifier', async () => {
   const response = await api.get('/api/blogs')
   response.body.map(blog => {
     expect(blog.id).toBeDefined()
   })
+
+})
+
+test('post request works', async () => {
+  const newBlog = {
+    _id:'5b422a851b54a676234d17f9',
+    title:'Testing Post Request',
+    author:'Test',
+    url:'test',
+    likes:0,
+    __v:0
+  }
+  await api.post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  expect(response.body.length).toBe(initialBlogs.length+1)
+  expect(response.body[4].author).toBe('Test')
 
 })
 
