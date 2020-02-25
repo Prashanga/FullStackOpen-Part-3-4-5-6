@@ -34,13 +34,21 @@ test('blogs are returned as json', async () => {
 test('there are four blogs', async () => {
   const response = await api.get('/api/blogs')
 
-  expect(response.body.length).toBe(4)
+  expect(response.body.length).toBe(initialBlogs.length)
 })
 
 test('the first blog is about React patterns', async () => {
   const response = await api.get('/api/blogs')
 
-  expect(response.body[0].title).toBe('React patterns')
+  expect(response.body[0].title).toBe(initialBlogs[0].title)
+})
+
+test('id is a unique identifier', async () => {
+  const response = await api.get('/api/blogs')
+  response.body.map(blog => {
+    expect(blog.id).toBeDefined()
+  })
+
 })
 
 afterAll(() => {
