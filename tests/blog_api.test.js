@@ -25,17 +25,21 @@ beforeEach(
   }
 )
 
-test('blogs are returned as json', async () => {
-  await api.get('/api/blogs')
-    .expect(200)
-    .expect('Content-type', /application\/json/)
+describe('get blogs', () => {
+  test('blogs are returned as json', async () => {
+    await api.get('/api/blogs')
+      .expect(200)
+      .expect('Content-type', /application\/json/)
+  })
+
+  test('there are four blogs', async () => {
+    const response = await api.get('/api/blogs')
+
+    expect(response.body.length).toBe(initialBlogs.length)
+  })
+
 })
 
-test('there are four blogs', async () => {
-  const response = await api.get('/api/blogs')
-
-  expect(response.body.length).toBe(initialBlogs.length)
-})
 
 
 test('id is a unique identifier', async () => {
@@ -46,56 +50,60 @@ test('id is a unique identifier', async () => {
 
 })
 
-test('post request works', async () => {
-  const newBlog = {
-    _id:'5b422a851b54a676234d17f9',
-    title:'Testing Post Request',
-    author:'Test',
-    url:'test',
-    likes:0,
-    __v:0
-  }
-  await api.post('/api/blogs')
-    .send(newBlog)
-    .expect(201)
-    .expect('Content-Type', /application\/json/)
+describe('making post requests', () => {
+  test('post request works', async () => {
+    const newBlog = {
+      _id:'5b422a851b54a676234d17f9',
+      title:'Testing Post Request',
+      author:'Test',
+      url:'test',
+      likes:0,
+      __v:0
+    }
+    await api.post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
 
-  const response = await api.get('/api/blogs')
-  expect(response.body.length).toBe(initialBlogs.length+1)
-  expect(response.body[4].author).toBe('Test')
+    const response = await api.get('/api/blogs')
+    expect(response.body.length).toBe(initialBlogs.length+1)
+    expect(response.body[4].author).toBe('Test')
 
+  })
+
+  test('no likes equals 0 likes', async () => {
+    const newBlog = {
+      _id:'5b422a851b54a676234d17f9',
+      title:'Testing 0 likes',
+      author:'Test',
+      url:'test',
+      __v:0
+    }
+    await api.post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+    expect(response.body.length).toBe(initialBlogs.length+1)
+    expect(response.body[4].likes).toBe(0)
+
+  })
+
+  test('posts must include title and url', async () => {
+    const newBlog = {
+      _id:'5b422a851b54a676234d17f9',
+      author:'Test',
+      __v:0
+    }
+    await api.post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+
+  })
 })
 
-test('no likes equals 0 likes', async () => {
-  const newBlog = {
-    _id:'5b422a851b54a676234d17f9',
-    title:'Testing 0 likes',
-    author:'Test',
-    url:'test',
-    __v:0
-  }
-  await api.post('/api/blogs')
-    .send(newBlog)
-    .expect(201)
-    .expect('Content-Type', /application\/json/)
 
-  const response = await api.get('/api/blogs')
-  expect(response.body.length).toBe(initialBlogs.length+1)
-  expect(response.body[4].likes).toBe(0)
-
-})
-
-test('posts must include title and url', async () => {
-  const newBlog = {
-    _id:'5b422a851b54a676234d17f9',
-    author:'Test',
-    __v:0
-  }
-  await api.post('/api/blogs')
-    .send(newBlog)
-    .expect(400)
-
-})
 
 afterAll(() => {
   mongoose.connection.close()
