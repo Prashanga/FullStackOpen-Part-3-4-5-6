@@ -120,8 +120,27 @@ describe('deleting a blog', () => {
 
 
     await api.delete('/api/blogs')
-      .send( { "title":"Hello Blog 69" } )
+      .send( { "title":"Hello Blog 6" } )
       .expect(204)
+  })
+})
+
+describe('modifying blog', () => {
+  test('modifying likes', async () => {
+    let id = "5a422a851b54a676234d17f7"
+
+    await api.put('/api/blogs/likes')
+      .send({
+        id: id,
+        likes: 4200
+      })
+      .expect(200)
+
+
+    let result = await api.get('/api/blogs')
+    //console.log(result.body)
+    let testBlog = result.body.find(x => x.id === id)
+    expect(testBlog.likes).toBe(4200)
   })
 })
 
