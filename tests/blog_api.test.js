@@ -103,6 +103,28 @@ describe('making post requests', () => {
   })
 })
 
+describe('deleting a blog', () => {
+
+  test('deleting a blog by title', async () => {
+
+    let newBlog = {
+      "title": "Hello Blog 6",
+      "author": "Prashanga",
+      "url": "www.www2.com",
+      "likes": 5
+    }
+
+    await api.post('/api/blogs')
+      .send(newBlog)
+      .expect(201)
+
+
+    await api.delete('/api/blogs')
+      .send( { "title":"Hello Blog 69" } )
+      .expect(204)
+  })
+})
+
 
 
 afterAll(() => {

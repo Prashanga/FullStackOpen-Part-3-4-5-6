@@ -19,4 +19,21 @@ appRouter.post('/', (request, response,next) => {
     .catch(err => next(err))
 })
 
+appRouter.delete('/', async (request,response,next) => {
+  try{
+    const result =  await Blog.deleteOne({
+      title: request.body.title
+    })
+    if(result.deletedCount === 1){
+      response.status(204).end()
+    }
+    else{
+      response.status(404).end()
+    }
+  }
+  catch(e) {
+    next(e)
+  }
+})
+
 module.exports = appRouter
