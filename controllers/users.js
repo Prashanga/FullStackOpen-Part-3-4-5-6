@@ -33,6 +33,7 @@ usersRouter.post('/', async (request,response,next) => {
 usersRouter.get('/', async (request,response,next) => {
   try{
     let result = await User.find({})
+      .populate('blogs',{ title:1, url:1, likes:1 })
     response.status(200).send(result)
   }
   catch(e){
