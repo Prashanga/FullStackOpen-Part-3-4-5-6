@@ -1,10 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldyBwcmFzaGFuZ2EiLCJpZCI6IjVlNThjNWZiZTJhYzc2MjNhNDU2ZTI5MiIsImlhdCI6MTU4Mjg4MjMzNH0.85GIA-mLEKI_9JJJRpkDGhfeCYLZuBXxabU_K8K_rvs
 
 {
     "title": "Hello Blog 659",
-    "author": "Prashanga",
     "url": "www.www2.com",
-    "likes": 5,
-    "user": "5e577c8d75fd1627e0de2517"
+    "likes": 50
 }
