@@ -15,8 +15,6 @@ appRouter.post('/', async (request, response,next) => {
 
   const body = request.body
 
-
-  // const token = middleware.getToken(request)
   if(!request.token ){
     return response.status(401).json({ error: 'token missing or invalid' })
   }
@@ -58,14 +56,34 @@ appRouter.post('/', async (request, response,next) => {
 
 appRouter.delete('/', async (request,response,next) => {
   try{
-    const result =  await Blog.deleteOne({
-      title: request.body.title
-    })
-    if(result.deletedCount === 1){
-      response.status(204).end()
+    const body = request.body
+
+    if(!request.token ){
+      return response.status(401).json({ error: 'authorization failed' })
     }
-    else{
-      response.status(404).end()
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if(!decodedToken.id){
+      return response.status(401).json({ error: 'authorizatin failed' })
+    }
+
+    const blog = await Blog.findById(body.id)
+    if(!blog){
+      return response.status(404).json({ 'error': 'no blog flound that matches the given criterion' })
+    }
+
+    if(blog.user.toString() === decodedToken.id.toString()){
+      // Author of the blog is the one who's loggeed in
+      const result =  await Blog.deleteOne({
+        _id: body.id
+      })
+
+      if(result.deletedCount === 1){
+        response.status(204).end()
+      }
+      else{
+        response.status(500).end()
+      }
+
     }
   }
   catch(e) {
