@@ -66,7 +66,7 @@ appRouter.delete('/', async (request,response,next) => {
       return response.status(401).json({ error: 'authorizatin failed' })
     }
 
-    const blog = await Blog.findById(body.id)
+    const blog = await Blog.findOne({ title: body.title })
     if(!blog){
       return response.status(404).json({ 'error': 'no blog flound that matches the given criterion' })
     }
@@ -74,7 +74,7 @@ appRouter.delete('/', async (request,response,next) => {
     if(blog.user.toString() === decodedToken.id.toString()){
       // Author of the blog is the one who's loggeed in
       const result =  await Blog.deleteOne({
-        _id: body.id
+        title: body.title
       })
 
       if(result.deletedCount === 1){
@@ -85,6 +85,9 @@ appRouter.delete('/', async (request,response,next) => {
       }
 
     }
+    else{
+      return response.status(401).end()
+    }
   }
   catch(e) {
     next(e)
@@ -93,18 +96,39 @@ appRouter.delete('/', async (request,response,next) => {
 
 appRouter.put('/likes', async (request,response,next) => {
   try{
-    const newLikes = request.body.likes
-    Blog.findById(request.body.id, async (err, blog) => {
-      if(err){
-        response.status(400).json({ 'error':'malformatted id' })
-      }
-      else{
-        blog.likes = newLikes
-        await blog.save()
-        response.status(200)
-          .json(blog)
-      }
-    })
+
+    const body = request.body
+
+    if(!request.token ){
+      return response.status(401).json({ error: 'authorization failed' })
+    }
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if(!decodedToken.id){
+      return response.status(401).json({ error: 'authorizatin failed' })
+    }
+
+    const blog = await Blog.findOne({ title: body.title })
+    if(!blog){
+      return response.status(404).json({ 'error': 'no blog flound that matches the given criterion' })
+    }
+
+    if(blog.user.toString() === decodedToken.id.toString()){
+      // Author of the blog is the one who's loggeed in
+
+      const newLikes = request.body.likes
+
+      Blog.findOne({ title: request.body.title }, async (err, blog) => {
+        if(err){
+          response.status(400).end()
+        }
+        else{
+          blog.likes = newLikes
+          await blog.save()
+          response.status(200)
+            .json(blog)
+        }
+      })
+    }
   }
   catch(e) {
     next(e)

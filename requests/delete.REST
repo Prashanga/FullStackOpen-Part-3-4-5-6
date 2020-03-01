@@ -1,7 +1,7 @@
 DELETE http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ldyBwcmFzaGFuZ2EiLCJpZCI6IjVlNThjNWZiZTJhYzc2MjNhNDU2ZTI5MiIsImlhdCI6MTU4Mjg4MjMzNH0.85GIA-mLEKI_9JJJRpkDGhfeCYLZuBXxabU_K8K_rvs
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjVlNWI0NDY1MjhjMDJjMjkwNDZkNzJmMSIsImlhdCI6MTU4MzAzOTc2Nn0.AIras_5cBq9i4obNOJmoTS27MFsuKFQdyTHzmD-6Mn8
 
 {
-    "id": "5e59b81ba0f36203d80abfc2"
+    "title": "Hello Blog 000"
 }
