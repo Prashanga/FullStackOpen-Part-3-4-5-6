@@ -1,2 +1,2 @@
-# FullStackOpen-Part 3 and 4
-Repository for Part-3 and 4 of FullStack course from fullstackopen.com
+# FullStackOpen-Part 3, 4 and 5
+Repository for Part-3, 4 and 5 of FullStack course from fullstackopen.com
