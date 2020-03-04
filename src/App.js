@@ -46,6 +46,10 @@ const App = () => {
 
   }
 
+  const handleLike = (id) => {
+    console.log("Liked blog: ",id)
+  }
+
   const handleBlogSubmit = async (newBlog) => {
     
     try{
@@ -87,7 +91,7 @@ const App = () => {
      <p>{user.name} logged in </p>
     <h2>Blogs</h2>
     {blogs.map(blog =>
-      <Blog key={blog.id} blog={blog} />
+      <Blog key={blog.id} blog={blog} handleLike={handleLike} />
     )}
     
     </> 
@@ -128,3 +132,5 @@ const App = () => {
 }
 
 export default App
+
+//To-Do: handleLike on Blog.js
