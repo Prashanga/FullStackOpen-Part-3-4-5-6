@@ -23,4 +23,13 @@ const postOne = async (blog) => {
 
 }
 
-export default { getAll,setToken,postOne }
+const deleteOne = async (blog) => {
+
+  let response = await axios.delete(baseUrl,{data:blog,headers: { "Authorization": token }})
+
+  return response
+
+}
+
+
+export default { getAll,setToken,postOne,deleteOne }

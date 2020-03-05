@@ -40,10 +40,47 @@ const App = () => {
 
   }
 
+  const getAndSortBlogs = async () => {
+    const returnedBlogs = await blogService.getAll()
+    const sortedBlogs = returnedBlogs.sort(function(a, b) {
+      return b.likes - a.likes;
+      });
+      
+    setBlogs(sortedBlogs)
+  }
+
+
   const handleLogOut = () => {
     window.localStorage.removeItem('loggedinUser')
     setUser(null)
 
+  }
+
+  const handleDelete = async (blog) => {
+    if(window.confirm(`Remove blog "${blog.title}"?`)){
+      try{
+        const response = await blogService.deleteOne(blog)
+        if(response.status === 204){
+          setBlogs(blogs.filter(oneBlog=>{return oneBlog.id !== blog.id}))
+          setNotification(`successfully deleted ${blog.title}`);
+          setTimeout(() => {setNotification(null)}, 5000)
+        }
+        else{
+          getAndSortBlogs()
+          setErrorMsg(`Failed to delete`);
+          setTimeout(() => {setErrorMsg(null)}, 5000)
+
+        }
+        console.log(response)}
+        catch(e){
+          console.log(e)
+          getAndSortBlogs()
+          setErrorMsg(`Failed to delete`);
+          setTimeout(() => {setErrorMsg(null)}, 5000)
+        }
+    }
+     // 
+    
   }
 
   const handleLike = (id) => {
@@ -69,18 +106,8 @@ const App = () => {
 
 
   useEffect(() => {
-    const getAndSortBlogs = async () => {
-      const returnedBlogs = await blogService.getAll()
-      const sortedBlogs = returnedBlogs.sort(function(a, b) {
-        return a.likes - b.likes;
-        });
-        
-      setBlogs(sortedBlogs)
-
-    }
-
     getAndSortBlogs()
-    
+      
   }, [])
 
   //check if a logged in info is present already
@@ -100,7 +127,7 @@ const App = () => {
      <p>{user.name} logged in </p>
     <h2>Blogs</h2>
     {blogs.map(blog =>
-      <Blog key={blog.id} blog={blog} handleLike={handleLike} />
+      <Blog key={blog.id} blog={blog} handleLike={handleLike} handleDelete={handleDelete} />
     )}
     
     </> 

@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 
 
-const Blog = ({ blog,handleLike }) => {
+const Blog = ({ blog,handleLike,handleDelete }) => {
 
   const [visibility, setVisibility] = useState(false)
 
@@ -28,6 +28,7 @@ const Blog = ({ blog,handleLike }) => {
       <br />Author: {blog.author}
       <br />Likes: {blog.likes} &nbsp;
       <button onClick={() => handleLike(blog.id)} >Like</button>
+      <br /><button onClick={() => handleDelete(blog)} style={{color:'blue'}} >Delete</button>
     </div>
 
   </div>
