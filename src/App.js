@@ -8,7 +8,6 @@ import Togglable from './components/Togglable'
 import Login from './components/Login'
 
 
-
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user,setUser] = useState(null)
@@ -16,23 +15,23 @@ const App = () => {
   const [errorMsg,setErrorMsg] = useState(null)
 
 
-  const handleLogin = async ({username,password}) => {
+  const handleLogin = async ({ username,password }) => {
     try
     {
 
       console.log('logging in with ', username, password)
-      const user = await loginService.login({username, password,})
+      const user = await loginService.login({ username, password, })
       window.localStorage.setItem(
         'loggedinUser', JSON.stringify(user)
       )
       setUser(user)
       blogService.setToken(user.token)
       console.log(user)
-      setNotification(`successfully logged in as ${user.username}`);
+      setNotification(`successfully logged in as ${user.username}`)
         setTimeout(() => {setNotification(null)}, 5000)
     }
     catch (exception) {
-      setErrorMsg(`Wrong credentials. Try again`);
+      setErrorMsg(`Wrong credentials. Try again`)
         setTimeout(() => {setErrorMsg(null)}, 5000)
       console.log(exception)
     }
@@ -43,9 +42,8 @@ const App = () => {
   const getAndSortBlogs = async () => {
     const returnedBlogs = await blogService.getAll()
     const sortedBlogs = returnedBlogs.sort(function(a, b) {
-      return b.likes - a.likes;
-      });
-      
+      return b.likes - a.likes
+      })
     setBlogs(sortedBlogs)
   }
 
@@ -61,13 +59,13 @@ const App = () => {
       try{
         const response = await blogService.deleteOne(blog)
         if(response.status === 204){
-          setBlogs(blogs.filter(oneBlog=>{return oneBlog.id !== blog.id}))
-          setNotification(`successfully deleted ${blog.title}`);
+          setBlogs(blogs.filter(oneBlog => {return oneBlog.id !== blog.id}))
+          setNotification(`successfully deleted ${blog.title}`)
           setTimeout(() => {setNotification(null)}, 5000)
         }
         else{
           getAndSortBlogs()
-          setErrorMsg(`Failed to delete`);
+          setErrorMsg(`Failed to delete`)
           setTimeout(() => {setErrorMsg(null)}, 5000)
 
         }
@@ -75,12 +73,11 @@ const App = () => {
         catch(e){
           console.log(e)
           getAndSortBlogs()
-          setErrorMsg(`Failed to delete`);
+          setErrorMsg(`Failed to delete`)
           setTimeout(() => {setErrorMsg(null)}, 5000)
         }
     }
-     // 
-    
+
   }
 
   const handleLike = (id) => {
@@ -88,17 +85,15 @@ const App = () => {
   }
 
   const handleBlogSubmit = async (newBlog) => {
-    
     try{
-      
     const post = await blogService.postOne(newBlog)
     setBlogs(blogs.concat(post))
-    setNotification(`successfully added ${post.title}`);
+    setNotification(`successfully added ${post.title}`)
     setTimeout(() => {setNotification(null)}, 5000)
     console.log(post)
   }
   catch(e){
-    setErrorMsg(`${e}`);
+    setErrorMsg(`${e}`)
     setTimeout(() => {setErrorMsg(null)}, 5000)
     console.log(e)
   }
@@ -107,7 +102,6 @@ const App = () => {
 
   useEffect(() => {
     getAndSortBlogs()
-      
   }, [])
 
   //check if a logged in info is present already
@@ -121,44 +115,43 @@ const App = () => {
     }
   }, [])
 
- 
-  const showBlogs = () =>(
+
+  const showBlogs = () => (
     <>
      <p>{user.name} logged in </p>
     <h2>Blogs</h2>
     {blogs.map(blog =>
       <Blog key={blog.id} blog={blog} handleLike={handleLike} handleDelete={handleDelete} />
     )}
-    
-    </> 
+
+    </>
   )
 
-  const logoutButton = () =>(
+  const logoutButton = () => (
     <button onClick={handleLogOut} name="logOutButton">Logout</button>
   )
 
- 
 
   return (
-  
+
     <div>
       <Notification notificationType="error" message={errorMsg} />
       <Notification notificationType="success" message={notification} />
 
-      {user === null && 
+      {user === null &&
       <Togglable buttonLabel="Login">
-      <Login 
+      <Login
         handleLogin={handleLogin}
       />
     </Togglable>}
-      
-      {user !== null && showBlogs()} 
-      <p></p>   
-      {user !== null && logoutButton()}  
+
+      {user !== null && showBlogs()}
       <p></p>
-      {user !== null && 
+      {user !== null && logoutButton()}
+      <p></p>
+      {user !== null &&
       <Togglable buttonLabel="New Blog">
-        <NewBlogForm 
+        <NewBlogForm
           handleBlogSubmit={handleBlogSubmit}
         />
       </Togglable>}
@@ -168,5 +161,3 @@ const App = () => {
 }
 
 export default App
-
-//To-Do: handleLike on Blog.js

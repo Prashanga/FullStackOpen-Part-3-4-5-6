@@ -14,7 +14,7 @@ const setToken = newToken => {
 
 const postOne = async (blog) => {
   const config = {
-    headers: { Authorization: token },  
+    headers: { Authorization: token },
   }
 
   let response = await axios.post(baseUrl,blog,config)
@@ -25,7 +25,7 @@ const postOne = async (blog) => {
 
 const deleteOne = async (blog) => {
 
-  let response = await axios.delete(baseUrl,{data:blog,headers: { "Authorization": token }})
+  let response = await axios.delete(baseUrl,{ data:blog,headers: { "Authorization": token } })
 
   return response
 
