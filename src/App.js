@@ -69,9 +69,18 @@ const App = () => {
 
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    const getAndSortBlogs = async () => {
+      const returnedBlogs = await blogService.getAll()
+      const sortedBlogs = returnedBlogs.sort(function(a, b) {
+        return a.likes - b.likes;
+        });
+        
+      setBlogs(sortedBlogs)
+
+    }
+
+    getAndSortBlogs()
+    
   }, [])
 
   //check if a logged in info is present already
