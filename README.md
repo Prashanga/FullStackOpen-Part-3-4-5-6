@@ -10,9 +10,12 @@ Exercises for part 3a and 3b, where a simple fullstack app is built that can sho
 
 ```
 Learning Outcomes:
-  REST Api, express server, middlewares, handling http requests, request and response types, 
-  Testing api calls using POSTMAN and VS Code Rest client, running Morgan midddleware to display requests in the server,
+  REST Api, express server, middlewares, handling http requests
+  HTTP request and response types, 
+  Testing api calls using POSTMAN and VS Code Rest client
+  Running Morgan midddleware to display requests in the server,
   Deploying simple front and backend to Heroku
+  
 ```
 *Screenshot:*
 
@@ -26,7 +29,9 @@ This branch contains exercises for parts 3 b and c from the course. It intorduce
 
 ```
 Learning Outcomes:
-MongoDB, mongoose, database queries, handling asynchronous requests and responses to and from the databases
+MongoDB, mongoose, database queries
+Handling asynchronous requests and responses to and from the databases
 Linting using ESlint
 Error handling
+
 ```
