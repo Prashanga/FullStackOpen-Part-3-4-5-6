@@ -11,8 +11,8 @@ This repository contains exercises for Parts 3, 4 and 5 in different branches.
 ### Branch:'master' and 'without-mongoDB'
 Exercises for part 3a and 3b, where a simple fullstack app is built that can show, add, delete and append phone numbers. Database hasn't been added yet. The app is deployed to Heroku. 
 
+**Learning Outcomes**
 ```
-Learning Outcomes:
   REST Api, express server, middlewares, handling http requests
   HTTP request and response types, 
   Testing api calls using POSTMAN and VS Code Rest client
@@ -30,8 +30,8 @@ Learning Outcomes:
 
 This branch contains exercises for parts 3 b and c from the course. It intorduces MOngoDB as the application's database. The queries to the database is handled by Mongoose and the database is stored in MongoDB Atlas. It also covers handling of errors in the backend and when connecting to and quering the database using a separate middleware for error handling. The database is connected to the app deployed in Heroku. Finally, ESLint is added to the application.
 
+**Learning Outcomes**
 ```
-Learning Outcomes:
 MongoDB, mongoose, database queries
 Handling asynchronous requests and responses to and from the databases
 Linting using ESlint
@@ -42,8 +42,8 @@ Error handling
 ## Part 4: Branch 'Part-4'
 This part covers testing of backend applications. Jest is used to test the backend helper functions and Supertest is used to test backend APIs. The application also contains login system that can authenticate username and passwordhash stored in the database.
 
+**Learning Outcomes**
 ```
-Learning Outcomes:
 
 Testing helper functions and APIs with jest and supertest
 Authentication with web tokens using json-web-tokens package
