@@ -1,4 +1,7 @@
-# Fullstackopen Course: Part 3
+# Fullstackopen Course
+
+
+## Part 3
 
 This part includes tutorials and exercises for creating and running an express server, deploying the fullstack app to Heroku, adding a MongoDB database to the application and linting using ESlint.
 
@@ -33,5 +36,21 @@ MongoDB, mongoose, database queries
 Handling asynchronous requests and responses to and from the databases
 Linting using ESlint
 Error handling
+
+```
+
+## Part 4: Branch 'Part-4'
+This part covers testing of backend applications. Jest is used to test the backend helper functions and Supertest is used to test backend APIs. The application also contains login system that can authenticate username and passwordhash stored in the database.
+
+```
+Learning Outcomes:
+
+Testing helper functions and APIs with jest and supertest
+Authentication with web tokens using json-web-tokens package
+Handling asynchronous requests with async/await
+Defining and using mongoose schema
+Creating and authenticating users: creating a login system
+Hashing password using bcrypt
+Better error handling
 
 ```
