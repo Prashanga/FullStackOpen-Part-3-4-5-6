@@ -1,8 +1,6 @@
-# Fullstackopen Course
+# Fullstackopen Course: Part 3
 
-## Part 3
-
-This part includes tutorials and exercises for creating and running an express server, deploying the fullstack app to Heroku, adding a MongoDB database to the application and linting using ESLint.
+This part includes tutorials and exercises for creating and running an express server, deploying the fullstack app to Heroku, adding a MongoDB database to the application and linting using ESlint.
 
 This repository contains exercises for Parts 3, 4 and 5 in different branches. 
 **Different branches correspond to different Parts of the course**
@@ -23,3 +21,12 @@ Learning Outcomes:
 
 
 ### Branch:with-mongoose
+
+This branch contains exercises for parts 3 b and c from the course. It intorduces MOngoDB as the application's database. The queries to the database is handled by Mongoose and the database is stored in MongoDB Atlas. It also covers handling of errors in the backend and when connecting to and quering the database using a separate middleware for error handling. The database is connected to the app deployed in Heroku. Finally, ESLint is added to the application.
+
+```
+Learning Outcomes:
+MongoDB, mongoose, database queries, handling asynchronous requests and responses to and from the databases
+Linting using ESlint
+Error handling
+```
