@@ -1,11 +1,8 @@
-# Fullstackopen Course
+# Fullstackopen Course: Part-3
 
+This repository contains code for exercises of part-3, 4 and 5 of the fullstack course from https://fullstackopen.com/en/ 
+These parts include creating and running an express server, deploying the fullstack app to Heroku, adding a MongoDB database to the application, linting using ESlint, testing express server and api using jest and supertest, user authentication using jsonwebtokens and so on.
 
-## Part 3
-
-This part includes tutorials and exercises for creating and running an express server, deploying the fullstack app to Heroku, adding a MongoDB database to the application and linting using ESlint.
-
-This repository contains exercises for Parts 3, 4 and 5 in different branches. 
 **Different branches correspond to different Parts of the course**
 
 ### Branch:'master' and 'without-mongoDB'
