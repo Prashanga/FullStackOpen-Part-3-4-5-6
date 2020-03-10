@@ -5,7 +5,7 @@ These parts include creating and running an express server, deploying the fullst
 
 **Different branches correspond to different Parts of the course**
 
-### Branch:'master' and 'without-mongoDB'
+### Branch:'master'
 Exercises for part 3a and 3b, where a simple fullstack app is built that can show, add, delete and append phone numbers. Database hasn't been added yet. The app is deployed to Heroku. 
 
 **Learning Outcomes**
