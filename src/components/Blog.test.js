@@ -15,9 +15,11 @@ describe('<Blog />', () => {
         likes: '99'
     }
 
+    const mockLikeHandler =jest.fn()
+
     beforeEach(() => {
       component = render(
-        <Blog blog={blog} />
+        <Blog blog={blog} handleLike={mockLikeHandler} />
       )
     })
 
@@ -40,6 +42,13 @@ describe('<Blog />', () => {
 
       const div = component.container.querySelector('.togglable')
       expect(div).not.toHaveStyle('display: none')
+    })
+
+    test('like button is pressed twice', () => {
+        const button = component.getByText('Like')
+        fireEvent.click(button)
+        fireEvent.click(button)
+        expect(mockLikeHandler.mock.calls.length).toBe(2)
     })
 
   })
