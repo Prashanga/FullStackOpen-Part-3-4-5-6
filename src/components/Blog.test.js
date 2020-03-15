@@ -11,7 +11,7 @@ describe('<Blog />', () => {
     const blog = {
         title: 'Test blog',
         url: 'www.test.com',
-        autohr: 'Prashanga',
+        author: 'Prashanga',
         likes: '99'
     }
 
@@ -28,17 +28,18 @@ describe('<Blog />', () => {
     })
 
     test('at start url and likes are not displayed', () => {
-      const div = component.container.querySelector('.toggable')
+      const div = component.container.querySelector('.togglable')
 
       expect(div).toHaveStyle('display: none')
     })
 
-    // test('after clicking the button, children are displayed', () => {
-    //   const button = component.getByText('show...')
-    //   fireEvent.click(button)
+    test('after clicking the button, children are displayed', () => {
 
-    //   const div = component.container.querySelector('.togglableContent')
-    //   expect(div).not.toHaveStyle('display: none')
-    // })
+      const button = component.getByText('View')
+      fireEvent.click(button)
+
+      const div = component.container.querySelector('.togglable')
+      expect(div).not.toHaveStyle('display: none')
+    })
 
   })

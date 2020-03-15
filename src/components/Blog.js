@@ -24,7 +24,7 @@ const Blog = ({ blog,handleLike,handleDelete }) => {
     Author: {blog.author} <br />
     <button onClick = {toggleVisibility}>{label}</button>
 
-    <div style={ { display: visibility?'':'none' } } className="toggable">
+    <div style={ { display: visibility?'':'none' } } className="togglable">
       <br />Url: {blog.url}
       <br />Likes: {blog.likes} &nbsp;
       <button onClick={() => handleLike(blog.id)} >Like</button>
