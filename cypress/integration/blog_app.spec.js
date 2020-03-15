@@ -4,7 +4,7 @@ describe('Blog app', function() {
      cy.request('POST', 'http://localhost:3003/api/testing/reset')
 
       const user = {
-          name: 'Test From Cypress',
+          name: 'Cypress',
           username: 'test',
           password: 'test'
         }
@@ -25,7 +25,7 @@ describe('Blog app', function() {
         cy.get('#password').type('test')
         cy.get('#loginButton').click()
 
-        cy.contains('Test From Cypress logged in')
+        cy.contains('Cypress logged in')
     })
 
     it('fails with wrong credentials', function() {
@@ -40,7 +40,7 @@ describe('Blog app', function() {
 
     })
   })
-  describe('when logged in', function() {
+  describe.only('when logged in', function() {
 
       beforeEach(function() {
           cy.contains('Login').click()
@@ -55,6 +55,20 @@ describe('Blog app', function() {
             cy.get('.inputUrl').type('Cypress Url')
             cy.contains('Create').click()
             cy.contains('New Blog from cypress')
+        })
+
+        it('blog can be liked', function() {
+            cy.contains('New Blog').click()
+            cy.get('.inputTitle').type('New Blog from cypress')
+            cy.get('.inputUrl').type('Cypress Url')
+            cy.contains('Create').click()
+            cy.contains('New Blog from cypress')
+            cy.contains('View').click()
+
+            cy.contains('Like').click()
+            cy.contains('successfully liked New Blog from cypress')
+
+
         })
     })
 

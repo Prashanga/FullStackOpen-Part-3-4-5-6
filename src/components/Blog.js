@@ -27,7 +27,7 @@ const Blog = ({ blog,handleLike,handleDelete }) => {
     <div style={ { display: visibility?'':'none' } } className="togglable">
       <br />Url: {blog.url}
       <br />Likes: {blog.likes} &nbsp;
-      <button onClick={() => handleLike(blog.id)} >Like</button>
+      <button onClick={() => handleLike(blog)} >Like</button>
       <br /><button onClick={() => handleDelete(blog)} style={{ color:'blue' }} >Delete</button>
     </div>
 

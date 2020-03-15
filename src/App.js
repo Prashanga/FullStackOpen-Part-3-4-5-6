@@ -80,8 +80,10 @@ const App = () => {
 
   }
 
-  const handleLike = (id) => {
-    console.log("Liked blog: ",id)
+  const handleLike = (blog) => {
+    console.log("Liked blog: ", blog.id)
+    setNotification(`successfully liked ${blog.title}`)
+        setTimeout(() => {setNotification(null)}, 10000)
   }
 
   const handleBlogSubmit = async (newBlog) => {
