@@ -18,4 +18,45 @@ describe('Blog app', function() {
 
   })
 
+  describe('Login',function() {
+    it('succeeds with correct credentials', function() {
+        cy.contains('Login').click()
+        cy.get('#username').type('test')
+        cy.get('#password').type('test')
+        cy.get('#loginButton').click()
+
+        cy.contains('Test From Cypress logged in')
+    })
+
+    it('fails with wrong credentials', function() {
+        cy.contains('Login').click()
+        cy.get('#username').type('test')
+        cy.get('#password').type('wrong password')
+        cy.get('#loginButton').click()
+
+        cy.contains('Wrong credentials. Try again')
+
+        cy.get('.error').should('have.css', 'color', 'rgb(32, 30, 30)')
+
+    })
   })
+  describe('when logged in', function() {
+
+      beforeEach(function() {
+          cy.contains('Login').click()
+          cy.get('#username').type('test')
+          cy.get('#password').type('test')
+          cy.get('#loginButton').click()
+        })
+
+        it('a new blog can be created', function() {
+            cy.contains('New Blog').click()
+            cy.get('.inputTitle').type('New Blog from cypress')
+            cy.get('.inputUrl').type('Cypress Url')
+            cy.contains('Create').click()
+            cy.contains('New Blog from cypress')
+        })
+    })
+
+
+})

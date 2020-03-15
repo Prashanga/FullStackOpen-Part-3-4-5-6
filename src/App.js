@@ -135,8 +135,8 @@ const App = () => {
   return (
 
     <div>
-      <Notification notificationType="error" message={errorMsg} />
-      <Notification notificationType="success" message={notification} />
+      <Notification className="notification" notificationType="error" message={errorMsg} />
+      <Notification className="notification" notificationType="success" message={notification} />
 
       {user === null &&
       <Togglable buttonLabel="Login">

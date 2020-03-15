@@ -23,13 +23,13 @@ const Login = ({ handleLogin }) => {
 
         <div>
         Username
-        <input type="text" value={username} name="Username" onChange={({ target }) => setUsername(target.value)}/>
+        <input type="text" id="username" value={username} name="Username" onChange={({ target }) => setUsername(target.value)}/>
         </div>
         <div>
         Password
-        <input type="password" name="Password" value={password} onChange= {(event) => setPassword(event.target.value) }/>
+        <input type="password" id="password" name="Password" value={password} onChange= {(event) => setPassword(event.target.value) }/>
         </div>
-        <button type="submit">Login</button>
+        <button id="loginButton" type="submit">Login</button>
     </form>
     )
 }
