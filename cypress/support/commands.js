@@ -45,3 +45,16 @@ Cypress.Commands.add('login', ({ username, password }) => {
 
     cy.visit('http://localhost:3000')
   })
+
+  Cypress.Commands.add('createBlogWLike', ({ title, url, likes }) => {
+    cy.request({
+      url: 'http://localhost:3003/api/blogs',
+      method: 'POST',
+      body: { title, url, likes },
+      headers: {
+        'Authorization': `bearer ${JSON.parse(localStorage.getItem('loggedNoteappUser')).token}`
+      }
+    })
+
+    cy.visit('http://localhost:3000')
+  })
