@@ -1,4 +1,5 @@
 describe('Blog app', function() {
+
     beforeEach(function() {
 
      cy.request('POST', 'http://localhost:3003/api/testing/reset')
@@ -40,13 +41,10 @@ describe('Blog app', function() {
 
     })
   })
-  describe.only('when logged in', function() {
+  describe('when logged in', function() {
 
       beforeEach(function() {
-          cy.contains('Login').click()
-          cy.get('#username').type('test')
-          cy.get('#password').type('test')
-          cy.get('#loginButton').click()
+        cy.login({ username: 'test', password: 'test' })
         })
 
         it('a new blog can be created', function() {
@@ -58,10 +56,10 @@ describe('Blog app', function() {
         })
 
         it('blog can be liked', function() {
-            cy.contains('New Blog').click()
-            cy.get('.inputTitle').type('New Blog from cypress')
-            cy.get('.inputUrl').type('Cypress Url')
-            cy.contains('Create').click()
+          cy.createBlog({
+            title:'New Blog from cypress',
+            url:'Cypress Url'
+          })
             cy.contains('New Blog from cypress')
             cy.contains('View').click()
 
@@ -72,5 +70,59 @@ describe('Blog app', function() {
         })
     })
 
+    describe('logged in user can delete their blog', function() {
+
+        beforeEach(function() {
+          cy.login({ username: 'test', password: 'test' })
+            cy.createBlog({
+              title:'New Blog from cypress',
+              url:'Cypress Url'
+            })
+            //cy.contains('New Blog from cypress')
+          })
+
+          it('user can delete a blog', function() {
+
+            cy.contains('Login').click()
+            cy.get('#username').type('test')
+            cy.get('#password').type('test')
+            cy.get('#loginButton').click()
+
+            cy.contains('View').click()
+            cy.contains('Delete').click()
+            cy.contains('successfully deleted New Blog from cypress')
+
+          })
+
+        })
+
+    describe.only('a user can\'t delete other\'s blog', function() {
+
+      beforeEach(function() {
+        const user = {
+          name: 'Another User',
+          username: 'another',
+          password: 'another'
+        }
+        cy.request('POST', 'http://localhost:3003/api/users/', user)
+        cy.login({ username: 'another', password: 'another' })
+              cy.createBlog({
+                title:'Blog from a separate user',
+                url:'www.another.com'
+              })
+        // cy.visit('http://localhost:3000')
+      })
+
+      it('can not delete blog from another user', function() {
+        cy.contains('Login').click()
+            cy.get('#username').type('test')
+            cy.get('#password').type('test')
+            cy.get('#loginButton').click()
+
+            cy.contains('View').click()
+            cy.contains('Delete').click()
+            cy.contains('Failed to delete')
+      })
+    })
 
 })
