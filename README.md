@@ -25,7 +25,7 @@ Exercises for part 3a and 3b, where a simple fullstack app is built that can sho
 
 ### Branch:with-mongoose
 
-This branch contains exercises for parts 3 b and c from the course. It intorduces MOngoDB as the application's database. The queries to the database is handled by Mongoose and the database is stored in MongoDB Atlas. It also covers handling of errors in the backend and when connecting to and quering the database using a separate middleware for error handling. The database is connected to the app deployed in Heroku. Finally, ESLint is added to the application.
+This branch contains exercises for parts 3c and 3d from the course. It intorduces MOngoDB as the application's database. The queries to the database is handled by Mongoose and the database is stored in MongoDB Atlas. It also covers handling of errors in the backend and when connecting to and quering the database using a separate middleware for error handling. The database is connected to the app deployed in Heroku. Finally, ESLint is added to the application.
 
 **Learning Outcomes**
 ```
