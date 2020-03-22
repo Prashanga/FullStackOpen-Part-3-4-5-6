@@ -1,3 +1,5 @@
+import dbService from '../server/server'
+
 const anecdoteReducer = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
@@ -33,17 +35,26 @@ export const updateVote = (id) => {
   }
 }
 
-export const addItem = (data) => {
-  return {
-    type: 'ADD',
-    data
+export const addItem = (content) => {
+  
+  return async dispatch => {
+    const data = await dbService.createNew(content)
+    dispatch({
+      type: 'ADD',
+      data
+    })
+    
   }
 }
 
-export const initAnecdotes = (data) => {
-  return {
+export const initAnecdotes = () => {
+
+  return async dispatch => {
+    const data = await dbService.getAll()
+    dispatch({
     type: 'INIT_ANECDOTES',
     data
+    })
   }
 }
 

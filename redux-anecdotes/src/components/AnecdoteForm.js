@@ -11,15 +11,9 @@ const AnectdoteForm = () => {
     const addNew = (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
-        const newAnecdote = {
-          content,
-          id: getId(),
-          votes: 0
-        }
+
+        dispatch(addItem(content))
         event.target.anecdote.value = ''
-
-        dispatch(addItem(newAnecdote))
-
         dispatch(add_new_notification(content.substr(0,10).concat('...')))
 
         setTimeout(() => {

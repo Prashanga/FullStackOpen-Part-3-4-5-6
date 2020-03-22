@@ -5,15 +5,13 @@ import Notification from './components/Notification'
 import Filter from './components/Filter'
 import { useDispatch } from 'react-redux'
 import { initAnecdotes } from './reducers/anecdoteReducer'
-import dbService from './server/server'
 
 const App = () => {
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dbService.getAll()
-      .then(anecdotes => dispatch(initAnecdotes(anecdotes)))
+    dispatch(initAnecdotes())
   },[])
 
   return (
