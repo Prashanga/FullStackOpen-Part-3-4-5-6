@@ -6,12 +6,19 @@ import { add_new_notification, reset_notification } from '../reducers/notificati
 const AnectdoteForm = () => {
 
     const dispatch = useDispatch()
+    const getId = () => (100000 * Math.random()).toFixed(0)
 
     const addNew = (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
+        const newAnecdote = {
+          content,
+          id: getId(),
+          votes: 0
+        }
         event.target.anecdote.value = ''
-        dispatch(addItem(content))
+
+        dispatch(addItem(newAnecdote))
 
         dispatch(add_new_notification(content.substr(0,10).concat('...')))
 
