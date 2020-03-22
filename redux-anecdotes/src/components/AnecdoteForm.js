@@ -20,7 +20,6 @@ const AnectdoteForm = () => {
         }, 5000)
       }
 
-      
 
       return(
         <>

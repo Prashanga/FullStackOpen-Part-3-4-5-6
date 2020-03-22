@@ -1,7 +1,5 @@
-const initialState = ''
-
 //vote and create a new anecdote
-const notificationReducer = (state=initialState, action) => {
+const notificationReducer = (state='', action) => {
     switch(action.type){
         case 'VOTE_NOTIF':
             return action.message
@@ -10,7 +8,7 @@ const notificationReducer = (state=initialState, action) => {
        case 'RESET_NOTIF':
             return action.message
         default:
-            return initialState
+            return ''
     }
 }
 
