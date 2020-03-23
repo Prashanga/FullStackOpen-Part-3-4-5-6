@@ -1,18 +1,18 @@
 import dbService from '../server/server'
 
 const anecdoteReducer = (state = [], action) => {
-  console.log('state now: ', state)
+  // console.log('state now: ', state)
   console.log('action', action)
 
   switch(action.type){
     case 'VOTE':
-      const id = action.data.id
-      const quote = state.find(x=> x.id === id)
-      const voteUpdate = {
-        ...quote,
-        votes: quote.votes+1
-      }
-      return state.map(item => item.id===id?voteUpdate:item)
+      //const id = action.data.id
+      // const quote = state.find(x=> x.id === id)
+      // const voteUpdate = {
+      //   ...quote,
+      //   votes: quote.votes+1
+      // }
+      return action.data
 
       case 'ADD':
         return [...state,action.data]
@@ -27,12 +27,16 @@ const anecdoteReducer = (state = [], action) => {
 }
 
 export const updateVote = (id) => {
-  return {
-    type: 'VOTE',
-    data: {
-      id
-    }
+
+  return async dispatch => {
+    const data = await dbService.vote(id)
+    dispatch({
+      type: 'VOTE',
+      data
+    })
+    
   }
+
 }
 
 export const addItem = (content) => {

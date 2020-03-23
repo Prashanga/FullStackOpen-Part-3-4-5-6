@@ -7,6 +7,8 @@ const getAll = async () => {
   return response.data
 }
 
+
+
 const createNew = async (content) => {
   const getId = () => (100000 * Math.random()).toFixed(0)
   const object = { 
@@ -18,4 +20,17 @@ const createNew = async (content) => {
   return response.data
 }
 
-export default { getAll, createNew }
+const vote = async ({id,anecdotes}) => {
+  
+  const quote = anecdotes.find(x=> x.id === id)
+  const voteUpdate = {
+    ...quote,
+    votes: quote.votes+1
+  }
+  return anecdotes.map(item => item.id===id?voteUpdate:item)
+
+
+}
+
+
+export default { getAll, createNew, vote }

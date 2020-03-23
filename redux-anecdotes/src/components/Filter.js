@@ -1,6 +1,6 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import searchReducer, { search_update }  from '../reducers/searchReducer'
+import { useDispatch } from 'react-redux'
+import { search_update }  from '../reducers/searchReducer'
 
 const Filter = () => {
   const dispatch = useDispatch()

@@ -1,19 +1,22 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { updateVote } from '../reducers/anecdoteReducer'
 import { vote_notification, reset_notification } from '../reducers/notificationReducer'
 
-const AnectdoteList = () => {
+const AnectdoteList = (props) => {
 
-    const anecdotes = useSelector(state => state.anecdotes)
-    const searchFilter = useSelector(state =>state.search)
+    // const anecdotes = useSelector(state => state.anecdotes)
+    // const searchFilter = useSelector(state =>state.search)
+    const anecdotes = props.anecdotes
+    const searchFilter = props.searchFilter
     const dispatch = useDispatch()
-
 
     const vote = (anecdote) => {
 
       const message = anecdote.content.substr(0,10).concat('...')
-      dispatch(updateVote(anecdote.id))
+      const id = anecdote.id
+      dispatch(updateVote({id,anecdotes}))
 
       dispatch(vote_notification(message))
 
@@ -29,18 +32,18 @@ const AnectdoteList = () => {
         return(
             <>
                 {sortedAnecdotes.map(anecdote =>
-                <div key={anecdote.id}>
-                <div>
-                    {anecdote.content}
-                </div>
-                <div>
-                    has {anecdote.votes}
-                    <button onClick = {() => vote(anecdote)}>vote</button>
-                </div>
-                
-                </div>
-            )}
-       
+                    <div key={anecdote.id}>
+                    <div>
+                        {anecdote.content}
+                    </div>
+                    <div>
+                        has {anecdote.votes}
+                        <button onClick = {() => vote(anecdote)}>vote</button>
+                    </div>
+        
+                    </div>
+                )}
+
             </>
         )
         
@@ -49,9 +52,8 @@ const AnectdoteList = () => {
     const FilteredOnlyAnecdotes = () => {
         const filteredAnecdotes = anecdotes.filter(item => {
             return item.content.toLowerCase().search(searchFilter.toLowerCase()) !== -1
-    
-        })
 
+        })
         const sortedNFiltered = filteredAnecdotes.sort((a,b) => b.votes - a.votes)
 
         return(
@@ -68,7 +70,7 @@ const AnectdoteList = () => {
                 
                 </div>
             )}
-       
+
             </>
         )
 
@@ -80,4 +82,13 @@ const AnectdoteList = () => {
 
 }
 
-export default AnectdoteList
+const mapStateToProps = (state) => {
+    return {
+        anecdotes: state.anecdotes,
+        searchFilter: state.search
+    }
+}
+
+const ConnectedAnecdoteList = connect(mapStateToProps)(AnectdoteList)
+
+export default ConnectedAnecdoteList

@@ -6,7 +6,6 @@ import { add_new_notification, reset_notification } from '../reducers/notificati
 const AnectdoteForm = () => {
 
     const dispatch = useDispatch()
-    const getId = () => (100000 * Math.random()).toFixed(0)
 
     const addNew = (event) => {
         event.preventDefault()
