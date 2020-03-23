@@ -6,12 +6,6 @@ const anecdoteReducer = (state = [], action) => {
 
   switch(action.type){
     case 'VOTE':
-      //const id = action.data.id
-      // const quote = state.find(x=> x.id === id)
-      // const voteUpdate = {
-      //   ...quote,
-      //   votes: quote.votes+1
-      // }
       return action.data
 
       case 'ADD':

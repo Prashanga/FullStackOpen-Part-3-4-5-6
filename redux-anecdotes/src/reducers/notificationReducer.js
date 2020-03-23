@@ -1,5 +1,6 @@
 //vote and create a new anecdote
 const notificationReducer = (state='', action) => {
+    console.log('action', action)
     switch(action.type){
         case 'VOTE_NOTIF':
             return action.message
@@ -8,7 +9,7 @@ const notificationReducer = (state='', action) => {
        case 'RESET_NOTIF':
             return action.message
         default:
-            return ''
+            return state
     }
 }
 
@@ -28,7 +29,7 @@ export const add_new_notification = (message) => {
 
 export const reset_notification = () => {
     return {
-      type: 'RESET',
+      type: 'RESET_NOTIF',
       message: ''
     }
 }

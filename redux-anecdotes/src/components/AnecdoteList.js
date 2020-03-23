@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+//import { useSelector, useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import { updateVote } from '../reducers/anecdoteReducer'
 import { vote_notification, reset_notification } from '../reducers/notificationReducer'
@@ -10,19 +10,23 @@ const AnectdoteList = (props) => {
     // const searchFilter = useSelector(state =>state.search)
     const anecdotes = props.anecdotes
     const searchFilter = props.searchFilter
-    const dispatch = useDispatch()
+    //const dispatch = useDispatch()
 
     const vote = (anecdote) => {
 
       const message = anecdote.content.substr(0,10).concat('...')
       const id = anecdote.id
-     // props.updateVote({id,anecdotes})
-        dispatch(updateVote({id,anecdotes}))
+      
+     //dispatch(updateVote({id,anecdotes}))
       props.vote_notification(message)
-
-      setTimeout(() => {
+      //dispatch(vote_notification(message))
+      props.updateVote({id,anecdotes})
+      //clearTimeout()
+     setTimeout(() => {
         props.reset_notification()
       }, 5000)
+      
+
     }
 
     const AllAnecdotes = ()=>{
