@@ -16,12 +16,12 @@ const AnectdoteList = (props) => {
 
       const message = anecdote.content.substr(0,10).concat('...')
       const id = anecdote.id
-      dispatch(updateVote({id,anecdotes}))
-
-      dispatch(vote_notification(message))
+     // props.updateVote({id,anecdotes})
+        dispatch(updateVote({id,anecdotes}))
+      props.vote_notification(message)
 
       setTimeout(() => {
-        dispatch(reset_notification())
+        props.reset_notification()
       }, 5000)
     }
 
@@ -40,13 +40,13 @@ const AnectdoteList = (props) => {
                         has {anecdote.votes}
                         <button onClick = {() => vote(anecdote)}>vote</button>
                     </div>
-        
+   
                     </div>
                 )}
 
             </>
         )
-        
+   
     }
 
     const FilteredOnlyAnecdotes = () => {
@@ -88,7 +88,15 @@ const mapStateToProps = (state) => {
         searchFilter: state.search
     }
 }
+const mapDispatchToProps = { 
+    vote_notification,
+    reset_notification,
+    updateVote
+}
 
-const ConnectedAnecdoteList = connect(mapStateToProps)(AnectdoteList)
+const ConnectedAnecdoteList = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AnectdoteList)
 
 export default ConnectedAnecdoteList
