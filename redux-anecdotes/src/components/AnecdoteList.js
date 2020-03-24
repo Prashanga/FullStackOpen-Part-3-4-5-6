@@ -1,38 +1,44 @@
 import React from 'react'
-//import { useSelector, useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import { updateVote } from '../reducers/anecdoteReducer'
 import { vote_notification, reset_notification } from '../reducers/notificationReducer'
+import { addTimer, removeTimer } from '../reducers/timerReducer'
 
 const AnectdoteList = (props) => {
 
-    // const anecdotes = useSelector(state => state.anecdotes)
-    // const searchFilter = useSelector(state =>state.search)
     const anecdotes = props.anecdotes
     const searchFilter = props.searchFilter
-    //const dispatch = useDispatch()
+
+    const clearAllTimeouts = () => {
+        props.timer.forEach(
+            time => {
+                clearTimeout(time)
+                props.removeTimer(time)
+            })
+    }
 
     const vote = (anecdote) => {
 
       const message = anecdote.content.substr(0,10).concat('...')
       const id = anecdote.id
-      
-     //dispatch(updateVote({id,anecdotes}))
       props.vote_notification(message)
-      //dispatch(vote_notification(message))
       props.updateVote({id,anecdotes})
-      //clearTimeout()
-     setTimeout(() => {
+
+        
+     if(props.timer.length>0) {clearAllTimeouts()}
+     //push timer to redux store
+     let timeout = setTimeout(() => {
         props.reset_notification()
       }, 5000)
       
-
+    props.addTimer(timeout)
+      
+      
     }
 
     const AllAnecdotes = ()=>{
 
         const sortedAnecdotes = anecdotes.sort((a,b) => b.votes - a.votes)
-
         return(
             <>
                 {sortedAnecdotes.map(anecdote =>
@@ -89,13 +95,16 @@ const AnectdoteList = (props) => {
 const mapStateToProps = (state) => {
     return {
         anecdotes: state.anecdotes,
-        searchFilter: state.search
+        searchFilter: state.search,
+        timer: state.timer
     }
 }
 const mapDispatchToProps = { 
     vote_notification,
     reset_notification,
-    updateVote
+    updateVote,
+    addTimer,
+    removeTimer
 }
 
 const ConnectedAnecdoteList = connect(
