@@ -17,12 +17,7 @@ const App = () => {
   const blogs =useSelector(state=>state.blogs) 
   const user =useSelector(state=> state.user)
 
-  // const [blogs, setBlogs] = useState([])
-  //const [user,setUser] = useState(null)
-  // const [notification,setNotification] = useState(null)
-  // const [errorMsg,setErrorMsg] = useState(null)
-
-
+  
   const handleLogin = async ({ username,password }) => {
     try
     {
